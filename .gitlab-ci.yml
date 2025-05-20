@@ -1,0 +1,15 @@
+stages:
+  - build
+
+build_simplebashutils:
+  stage: build
+  tags:
+    - shell
+  script:
+    - mkdir -p build
+    - make
+    - cp -r ./cat ./grep ./head ./tail ./wc ./build/ || true
+  artifacts:
+    paths:
+      - build/
+    expire_in: 30 days
