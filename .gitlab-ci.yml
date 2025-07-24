@@ -16,3 +16,15 @@ build_simplebashutils:
     paths:
       - C3_SimpleBashUtils-1/build/
     expire_in: 30 days
+
+check_code_style:
+  stage: code_style
+  tags:
+    - tag1
+  script:
+    - apt-get update && apt-get install -y clang-format
+    - git clone ssh://git@git-ssh.21-school.ru:2222/students/C3_SimpleBashUtils.ID_353513/maudeluc/C3_SimpleBashUtils-1.git -b develop
+    - cd C3_SimpleBashUtils-1
+    - >
+      find . -name "*.[ch]" -exec clang-format --dry-run --Werror {} + 
+      || (echo "❌ Code style check failed!" && exit 1)
