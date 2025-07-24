@@ -35,6 +35,7 @@ integration_tests:
   tags:
     - tag1
   script:
+    - rm -rf C3_SimpleBashUtils-1
     - git clone ssh://git@git-ssh.21-school.ru:2222/students/C3_SimpleBashUtils.ID_353513/maudeluc/C3_SimpleBashUtils-1.git -b develop
     - cd C3_SimpleBashUtils-1/src/cat
     - echo "Running cat integration tests..."
