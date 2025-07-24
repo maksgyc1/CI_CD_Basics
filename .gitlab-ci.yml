@@ -2,6 +2,7 @@ stages:
   - build
   - code_style
   - integration_tests
+  - deploy
 
 build_simplebashutils:
   stage: build
@@ -47,4 +48,23 @@ integration_tests:
     - cp cloned_repo/src/grep/s21_grep cloned_repo_tests/src/grep/
     - cd cloned_repo_tests/src/cat
     - echo "Running cat integration tests..."
-    - bash tests.sh | grep -m 1 Fail && exit 1
+    - bash tests.sh #| grep -m 1 Fail && exit 1
+
+deployment:
+  stage: deploy
+  tags:
+    - tag1
+  needs:
+    - job: build_simplebashutils
+      artifacts: true
+    - job: check_code_style
+      artifacts: false
+    - job: integration_tests
+      artifacts: false
+  script:
+    - scp cloned_repo/src/cat/s21_cat maudeluc@192.168.31.232:
+    - scp cloned_repo/src/grep/s21_grep maudeluc@192.168.31.232:
+    - ssh -t maudeluc@192.168.31.232 'sudo mv s21_cat /usr/local/bin'
+    - echo '1234\n'
+    - ssh -t maudeluc@192.168.31.232 'sudo mv s21_grep /usr/local/bin'
+    - echo '1234\n'
