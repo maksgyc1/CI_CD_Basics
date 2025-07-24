@@ -42,7 +42,7 @@ integration_tests:
     - job: check_code_style
       artifacts: false
   script:
-    - git clone ssh://git@git-ssh.21-school.ru:2222/students/C3_SimpleBashUtils.ID_353513/maudeluc/C3_SimpleBashUtils-1.git cloned_repo_tests
+    - git clone ssh://git@git-ssh.21-school.ru:2222/students/C3_SimpleBashUtils.ID_353513/maudeluc/C3_SimpleBashUtils-1.git -b develop cloned_repo_tests
     - cp cloned_repo/src/cat/s21_cat cloned_repo_tests/src/cat/
     - cp cloned_repo/src/grep/s21_grep cloned_repo_tests/src/grep/
     - cd cloned_repo_tests/src/cat
