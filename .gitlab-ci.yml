@@ -62,7 +62,7 @@ deployment:
     - job: integration_tests
       artifacts: false
   script:
-    - scp cloned_repo/src/cat/s21_cat maudeluc@192.168.31.232:
-    - scp cloned_repo/src/grep/s21_grep maudeluc@192.168.31.232:
+    - "scp cloned_repo/src/cat/s21_cat maudeluc@192.168.31.232:"
+    - "scp cloned_repo/src/grep/s21_grep maudeluc@192.168.31.232:"
     - ssh -t maudeluc@192.168.31.232 'sudo mv s21_cat /usr/local/bin'
     - ssh -t maudeluc@192.168.31.232 'sudo mv s21_grep /usr/local/bin'
