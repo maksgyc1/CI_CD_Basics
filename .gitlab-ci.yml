@@ -44,6 +44,7 @@ integration_tests:
   script:
     - cd cloned_repo/src/cat
     - echo "Running cat integration tests..."
+    - bash ls -a
     - bash tests.sh
     - cd ../grep
     - echo "Running grep integration tests..."
