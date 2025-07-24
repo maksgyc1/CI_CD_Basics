@@ -1,40 +1,51 @@
 stages:
   - build
   - code_style
-  - test
+  - integration_tests
 
 build_simplebashutils:
   stage: build
   tags:
     - tag1
   script:
-    - cd C3_SimpleBashUtils-1/src/cat && make
+    - git clone ssh://git@git-ssh.21-school.ru:2222/students/C3_SimpleBashUtils.ID_353513/maudeluc/C3_SimpleBashUtils-1.git -b develop cloned_repo
+    - cd cloned_repo/src/cat && make
     - cd ../grep && make
   artifacts:
     paths:
-      - C3_SimpleBashUtils-1/src/cat/s21_cat
-      - C3_SimpleBashUtils-1/src/grep/s21_grep
+      - cloned_repo/src/cat/s21_cat
+      - cloned_repo/src/grep/s21_grep
     expire_in: 30 days
 
 check_code_style:
   stage: code_style
   tags:
     - tag1
+  needs:
+    - job: build_simplebashutils
+      artifacts: true
   script:
+    - apt-get update && apt-get install -y clang-format
+    - cd cloned_repo
     - echo "Running clang-format check..."
     - >
-      find C3_SimpleBashUtils-1 -name "*.[ch]" -exec clang-format -n --verbose {} +
+      find . -name "*.[ch]" -exec clang-format -n --verbose {} + 
       || (echo "❌ Code style check failed!" && exit 1)
 
 integration_tests:
-  stage: test
+  stage: integration_tests
   tags:
     - tag1
-  dependencies:
-    - build_simplebashutils
+  needs:
+    - job: build_simplebashutils
+      artifacts: true
+    - job: check_code_style
+      artifacts: false
   script:
-    - cd C3_SimpleBashUtils-1/src/cat
+    - cd cloned_repo/src/cat
+    - echo "Running cat integration tests..."
     - bash tests.sh
     - cd ../grep
+    - echo "Running grep integration tests..."
     - make test
 
