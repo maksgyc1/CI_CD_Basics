@@ -4,12 +4,15 @@ stages:
 build_simplebashutils:
   stage: build
   tags:
-    - shell
+    - tag1
   script:
-    - mkdir -p build
-    - make
-    - cp -r ./cat ./grep ./head ./tail ./wc ./build/ || true
+    - git clone ssh://git@git-ssh.21-school.ru:2222/students/C3_SimpleBashUtils.ID_353513/maudeluc/C3_SimpleBashUtils-1.git -b develop
+    - cd C3_SimpleBashUtils-1/src/cat && make
+    - cd ../grep && make
+    - mkdir -p ../../build
+    - cp ../cat/s21_cat ../../build/ || true
+    - cp s21_grep ../../build/ || true
   artifacts:
     paths:
-      - build/
+      - C3_SimpleBashUtils-1/build/
     expire_in: 30 days
