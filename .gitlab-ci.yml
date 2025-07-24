@@ -46,7 +46,7 @@ integration_tests:
     - ls -la
     - ls -la cloned_repo/src/cat
     - cp cloned_repo/src/cat/s21_cat cloned_repo_tests/src/cat/
-    - cp cloned_repo/src/cat/s21_grep cloned_repo_tests/src/cat/
+    - cp cloned_repo/src/grep/s21_grep cloned_repo_tests/src/grep/
     - cd cloned_repo_tests/src/cat
     - echo "Running cat integration tests..."
     - bash tests.sh
