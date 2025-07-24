@@ -1,6 +1,6 @@
 stages:
   - build
-
+  - code_style
 build_simplebashutils:
   stage: build
   tags:
