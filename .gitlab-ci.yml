@@ -43,14 +43,14 @@ integration_tests:
       artifacts: false
   script:
     - git clone ssh://git@git-ssh.21-school.ru:2222/students/C3_SimpleBashUtils.ID_353513/maudeluc/C3_SimpleBashUtils-1.git cloned_repo_tests
-    - ls -la
-    - ls -la cloned_repo/src/cat
     - cp cloned_repo/src/cat/s21_cat cloned_repo_tests/src/cat/
     - cp cloned_repo/src/grep/s21_grep cloned_repo_tests/src/grep/
     - cd cloned_repo_tests/src/cat
+    - ls -la
     - echo "Running cat integration tests..."
     - bash tests.sh
     - cd ../grep
+    - ls -la
     - echo "Running grep integration tests..."
     - make test
 
