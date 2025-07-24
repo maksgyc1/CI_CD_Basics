@@ -32,6 +32,8 @@ check_code_style:
 
 integration_tests:
   stage: test
+  dependencies:
+    - build_simplebashutils
   tags:
     - tag1
   script:
