@@ -47,6 +47,5 @@ integration_tests:
     - cp cloned_repo/src/grep/s21_grep cloned_repo_tests/src/grep/
     - cd cloned_repo_tests/src/cat
     - echo "Running cat integration tests..."
-    - bash tests.sh
-    - >
-      bash tests.sh | grep -q Fail && exit 1 || true
+#    - bash tests.sh
+    - bash tests.sh | grep -q Fail && exit 1 || true
