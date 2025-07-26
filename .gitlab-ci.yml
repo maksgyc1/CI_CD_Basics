@@ -54,6 +54,8 @@ deployment:
   stage: deploy
   tags:
     - tag1
+  when: manual
+  allow_failure: false
   needs:
     - job: build_simplebashutils
       artifacts: true
