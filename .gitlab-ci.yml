@@ -49,7 +49,7 @@ integration_tests:
     - cp cloned_repo/src/grep/s21_grep cloned_repo_tests/src/grep/
     - cd cloned_repo_tests/src/cat
     - echo "Running cat integration tests..."
-    - bash tests.sh #| grep -m 1 Fail && exit 1
+    - bash tests.sh | grep -m 1 Fail && exit 1
 
 deployment:
   stage: deploy
