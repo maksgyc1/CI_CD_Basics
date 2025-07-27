@@ -120,8 +120,8 @@ notify_result_CD_good:
     - >
       curl -s -X POST https://api.telegram.org/bot8381515598:AAEOydYqz34HQl_fC_GYsdN4Sj3iCR8RYCs/sendMessage \
         -d chat_id=689713743 \
-        -d text="*[maks DO6 CI/CD] $STATUS_CD Проект: $CI_PROJECT_NAME\nCommit: $CI_COMMIT_SHORT_SHA\nPipeline: $CI_PIPELINE_ID" \
-        -d parse_mode=Markdown
+        -d parse_mode=Markdown \
+        --data-urlencode "text=*maks DO6 CI/CD* $STATUS_CD%0AПроект: $CI_PROJECT_NAME%0ACommit: $CI_COMMIT_SHORT_SHA%0APipeline: $CI_PIPELINE_ID"
 
 notify_result_CD_bad:
   stage: notification_CD
@@ -136,5 +136,6 @@ notify_result_CD_bad:
     - >
       curl -s -X POST https://api.telegram.org/bot8381515598:AAEOydYqz34HQl_fC_GYsdN4Sj3iCR8RYCs/sendMessage \
         -d chat_id=689713743 \
-        -d text="*[maks DO6 CI/CD] $STATUS_CD Проект: $CI_PROJECT_NAME\nCommit: $CI_COMMIT_SHORT_SHA\nPipeline: $CI_PIPELINE_ID" \
-        -d parse_mode=Markdown
+        -d parse_mode=Markdown \
+        --data-urlencode "text=*maks DO6 CI/CD* $STATUS_CD%0AПроект: $CI_PROJECT_NAME%0ACommit: $CI_COMMIT_SHORT_SHA%0APipeline: $CI_PIPELINE_ID"
+        
