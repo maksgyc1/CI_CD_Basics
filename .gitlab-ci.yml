@@ -68,7 +68,7 @@ notify_result_CI_good:
     - >
       curl -s -X POST https://api.telegram.org/bot8381515598:AAEOydYqz34HQl_fC_GYsdN4Sj3iCR8RYCs/sendMessage \
         -d chat_id=689713743 \
-        -d text="*[maks DO6 CI/CD]*\n\n$STATUS_CI\n$STATUS_CD\n\n🛠 Проект: $CI_PROJECT_NAME\nCommit: $CI_COMMIT_SHORT_SHA\nPipeline: $CI_PIPELINE_ID" \
+        -d text="*[maks DO6 CI/CD]* $STATUS_CI Проект: $CI_PROJECT_NAME Commit: $CI_COMMIT_SHORT_SHA Pipeline: $CI_PIPELINE_ID" \
         -d parse_mode=Markdown
 
 notify_result_CI_bad:
@@ -86,7 +86,7 @@ notify_result_CI_bad:
     - >
       curl -s -X POST https://api.telegram.org/bot8381515598:AAEOydYqz34HQl_fC_GYsdN4Sj3iCR8RYCs/sendMessage \
         -d chat_id=689713743 \
-        -d text="*[maks DO6 CI/CD]*\n\n$STATUS_CI\n$STATUS_CD\n\n🛠 Проект: $CI_PROJECT_NAME\nCommit: $CI_COMMIT_SHORT_SHA\nPipeline: $CI_PIPELINE_ID" \
+        -d text="*[maks DO6 CI/CD]* $STATUS_CI Проект: $CI_PROJECT_NAME Commit: $CI_COMMIT_SHORT_SHA Pipeline: $CI_PIPELINE_ID" \
         -d parse_mode=Markdown
 
 deployment:
@@ -105,7 +105,7 @@ deployment:
   script:
     - "scp cloned_repo/src/cat/s21_cat maudeluc@192.168.31.232:"
     - "scp cloned_repo/src/grep/s21_grep maudeluc@192.168.31.232:"
-    - ssh -t maudeluc@192.168.31.232 'sudo mv s21_cat /usr/local/bin'
+    - abassh -t maudeluc@192.168.31.232 'sudo mv s21_cat /usr/local/bin'
     - ssh -t maudeluc@192.168.31.232 'sudo mv s21_grep /usr/local/bin'
 
 notify_result_CD_good:
