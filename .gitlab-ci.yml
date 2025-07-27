@@ -2,6 +2,7 @@ stages:
   - build
   - code_style
   - integration_tests
+  - notification_CI
   - deploy
 
 build_simplebashutils:
@@ -51,6 +52,42 @@ integration_tests:
     - echo "Running cat integration tests..."
     - bash tests.sh | grep -m 1 Fail && exit 1
 
+notify_result_CI_good:
+  stage: notification_CI
+  tags:
+    - tag1
+  needs:
+    - job: build_simplebashutils
+    - job: check_code_style
+    - job: integration_tests
+  when: on_success
+  script:
+    - >
+      STATUS_CI=$("✅ CI этап прошёл успешно")
+    - >
+      curl -s -X POST https://api.telegram.org/bot8381515598:AAEOydYqz34HQl_fC_GYsdN4Sj3iCR8RYCs/sendMessage \
+        -d chat_id=689713743 \
+        -d text="🔔 *[maks DO6 CI/CD]*\n\n$STATUS_CI\n$STATUS_CD\n\n🛠 Проект: $CI_PROJECT_NAME\n📦 Commit: $CI_COMMIT_SHORT_SHA\n🧪 Pipeline: $CI_PIPELINE_ID" \
+        -d parse_mode=Markdown
+
+notify_result_CI_bad:
+  stage: notification_CI
+  tags:
+    - tag1
+  needs:
+    - job: build_simplebashutils
+    - job: check_code_style
+    - job: integration_tests
+  when: on_failure
+  script:
+    - >
+      STATUS_CI=$("❌ CI этап провален")
+    - >
+      curl -s -X POST https://api.telegram.org/bot8381515598:AAEOydYqz34HQl_fC_GYsdN4Sj3iCR8RYCs/sendMessage \
+        -d chat_id=689713743 \
+        -d text="🔔 *[maks DO6 CI/CD]*\n\n$STATUS_CI\n$STATUS_CD\n\n🛠 Проект: $CI_PROJECT_NAME\n📦 Commit: $CI_COMMIT_SHORT_SHA\n🧪 Pipeline: $CI_PIPELINE_ID" \
+        -d parse_mode=Markdown
+
 deployment:
   stage: deploy
   tags:
@@ -70,7 +107,7 @@ deployment:
     - ssh -t maudeluc@192.168.31.232 'sudo mv s21_cat /usr/local/bin'
     - ssh -t maudeluc@192.168.31.232 'sudo mv s21_grep /usr/local/bin'
 
-notify_result:
+notify_result_CI:
   stage: deploy
   tags:
     - tag1
