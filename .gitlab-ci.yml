@@ -9,7 +9,8 @@ build_simplebashutils:
   tags:
     - tag1
   script:
-    - git clone ssh://git@git-ssh.21-school.ru:2222/students/C3_SimpleBashUtils.ID_353513/maudeluc/C3_SimpleBashUtils-1.git -b develop cloned_repo
+#    - git clone ssh://git@git-ssh.21-school.ru:2222/students/C3_SimpleBashUtils.ID_353513/maudeluc/C3_SimpleBashUtils-1.git -b develop cloned_repo
+    - git clone https://git.21-school.ru/students/C3_SimpleBashUtils.ID_353513/maudeluc/C3_SimpleBashUtils-1.git -b develop cloned_repo
     - cd cloned_repo/src/cat && make
     - cd ../grep && make
   artifacts:
