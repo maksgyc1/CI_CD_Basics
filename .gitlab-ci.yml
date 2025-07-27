@@ -33,7 +33,7 @@ check_code_style:
     - echo "Running clang-format check..."
     - >
       find . -name "*.[ch]" -exec clang-format -n --verbose {} + 
-      || (echo "❌ Code style check failed!" && exit 1)
+      || (echo "Code style check failed!" && exit 1)
 
 integration_tests:
   stage: integration_tests
@@ -63,11 +63,11 @@ notify_result_CI_good:
   when: on_success
   script:
     - >
-      STATUS_CI=$("✅ CI этап прошёл успешно")
+      STATUS_CI="CI этап прошёл успешно"
     - >
       curl -s -X POST https://api.telegram.org/bot8381515598:AAEOydYqz34HQl_fC_GYsdN4Sj3iCR8RYCs/sendMessage \
         -d chat_id=689713743 \
-        -d text="🔔 *[maks DO6 CI/CD]*\n\n$STATUS_CI\n$STATUS_CD\n\n🛠 Проект: $CI_PROJECT_NAME\n📦 Commit: $CI_COMMIT_SHORT_SHA\n🧪 Pipeline: $CI_PIPELINE_ID" \
+        -d text="*[maks DO6 CI/CD]*\n\n$STATUS_CI\n$STATUS_CD\n\n🛠 Проект: $CI_PROJECT_NAME\nCommit: $CI_COMMIT_SHORT_SHA\nPipeline: $CI_PIPELINE_ID" \
         -d parse_mode=Markdown
 
 notify_result_CI_bad:
@@ -81,11 +81,11 @@ notify_result_CI_bad:
   when: on_failure
   script:
     - >
-      STATUS_CI=$("❌ CI этап провален")
+      STATUS_CI="CI этап провален"
     - >
       curl -s -X POST https://api.telegram.org/bot8381515598:AAEOydYqz34HQl_fC_GYsdN4Sj3iCR8RYCs/sendMessage \
         -d chat_id=689713743 \
-        -d text="🔔 *[maks DO6 CI/CD]*\n\n$STATUS_CI\n$STATUS_CD\n\n🛠 Проект: $CI_PROJECT_NAME\n📦 Commit: $CI_COMMIT_SHORT_SHA\n🧪 Pipeline: $CI_PIPELINE_ID" \
+        -d text="*[maks DO6 CI/CD]*\n\n$STATUS_CI\n$STATUS_CD\n\n🛠 Проект: $CI_PROJECT_NAME\nCommit: $CI_COMMIT_SHORT_SHA\nPipeline: $CI_PIPELINE_ID" \
         -d parse_mode=Markdown
 
 deployment:
@@ -113,17 +113,17 @@ notify_result_CI:
     - tag1
   script:
     - >
-      STATUS_CI=$([ "$CI_JOB_STAGE" = "deploy" ] && echo "✅ CI этап прошёл успешно" || echo "❌ CI этап провален")
+      STATUS_CI=$([ "$CI_JOB_STAGE" = "deploy" ] && echo "CI этап прошёл успешно" || echo "CI этап провален")
     - >
       if [ "$CI_JOB_STATUS" = "success" ]; then
-        STATUS_CD="✅ CD этап прошёл успешно"
+        STATUS_CD="CD этап прошёл успешно"
       else
-        STATUS_CD="❌ CD этап провален"
+        STATUS_CD="CD этап провален"
       fi
     - >
       curl -s -X POST https://api.telegram.org/bot8381515598:AAEOydYqz34HQl_fC_GYsdN4Sj3iCR8RYCs/sendMessage \
         -d chat_id=689713743 \
-        -d text="🔔 *[maks DO6 CI/CD]*\n\n$STATUS_CI\n$STATUS_CD\n\n🛠 Проект: $CI_PROJECT_NAME\n📦 Commit: $CI_COMMIT_SHORT_SHA\n🧪 Pipeline: $CI_PIPELINE_ID" \
+        -d text="*[maks DO6 CI/CD]*\n\n$STATUS_CI\n$STATUS_CD\n\n🛠 Проект: $CI_PROJECT_NAME\nCommit: $CI_COMMIT_SHORT_SHA\nPipeline: $CI_PIPELINE_ID" \
         -d parse_mode=Markdown
   when: always
   allow_failure: true
